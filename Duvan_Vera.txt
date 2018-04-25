@@ -1,0 +1,61 @@
+plsql.execute <<-SQL
+ -- CREACION TABLESPACE SIN PUNTO Y COMA
+ --USED USER SYSTEM
+
+-- 1. CREATE TABLESPACES
+-- AVIANCA
+CREATE TABLESPACE mid_term DATAFILE 'mid_term.DBF' SIZE 20M
+
+CREATE USER mid_term IDENTIFIED BY mid_term
+DEFAULT TABLESPACE mid_term
+QUOTA UNLIMITED ON mid_term
+
+-- PERMISSIONS
+GRANT DBA TO mid_term
+GRANT CREATE SESSION TO mid_term
+
+SQL
+
+plsql.execute <<-SQL
+ -- CREACION PERFIL SIN PUNTO Y COMA
+ -- 2. PROFILES
+
+-- exam
+CREATE PROFILE exam LIMIT
+IDLE_TIME                       5
+FAILED_LOGIN_ATTEMPTS           2
+
+SQL
+
+plsql.execute <<-SQL
+ -- CREACION USUARIO SIN PUNTO Y COMA
+ -- 3. CREATE USERS 
+
+CREATE USER ejercicios IDENTIFIED BY ejercicios
+DEFAULT TABLESPACE mid_term
+PROFILE exam;
+
+SQL
+
+plsql(:data).execute <<-SQL
+ -- CREACION VISTA 1 SIN PUNTO Y COMA
+    create view view_1 as
+   SELECT SALESMAN.name as salerman_name, CUSTOMERS.name as customer_name ,SALESMAN.COUNTRY as COUNTRIES
+   from SALESMAN  inner join CUSTOMERS  
+   on SALESMAN.COUNTRY = CUSTOMERS.COUNTRY
+SQL
+
+plsql(:data).execute <<-SQL
+ -- CREACION VISTA 2 SIN PUNTO Y COMA
+ -- EJEMPLO CREATE VIEW ...
+SQL
+
+plsql(:data).execute <<-SQL
+ -- CREACION VISTA 3 SIN PUNTO Y COMA
+ -- EJEMPLO CREATE VIEW ...
+SQL
+
+plsql(:data).execute <<-SQL
+ -- CREACION VISTA 4 SIN PUNTO Y COMA
+ -- EJEMPLO CREATE VIEW ...
+SQL
